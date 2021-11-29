@@ -11,7 +11,7 @@ type UserRepository struct {
 }
 
 func (repository *UserRepository) FindById(id int) (user models.User, err error) {
-	if err = repository.Find(&user, id).Error; err != nil {
+	if err = repository.First(&user, id).Error; err != nil {
 		return
 	}
 	return
