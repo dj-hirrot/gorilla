@@ -3,6 +3,7 @@ package controller
 import (
 	"strconv"
 
+	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
 	"github.com/dj-hirrot/gorilla/src/interface/db"
 	"github.com/dj-hirrot/gorilla/src/usecase"
@@ -97,17 +98,18 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        id        path      int         true "User ID"
-// @Param        parameter body      models.User true "User attributes"
-// @Success      204       {object}  models.User
+// @Param        id        path      int                 true "User ID"
+// @Param        parameter body      entities.UserParams true "User attributes"
+// @Success      204       {object}  entities.UserParams
 // @Failure      400       {object}  Error
 // @Failure      404       {object}  Error
 // @Failure      500       {object}  Error
 // @Router       /users/{id} [put]
-func (controller *UserController) Save(c echo.Context) (err error) {
-	u := models.User{}
+func (controller *UserController) Update(c echo.Context) (err error) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	u := entities.UserParams{}
 	c.Bind(&u)
-	user, err := controller.Interactor.Update(u)
+	user, err := controller.Interactor.Update(id, u)
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return

@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
 )
 
@@ -23,8 +24,8 @@ func (interactor *UserInteractor) Create(u models.User) (user models.User, err e
 	return
 }
 
-func (interactor *UserInteractor) Update(u models.User) (user models.User, err error) {
-	user, err = interactor.UserRepository.Update(u)
+func (interactor *UserInteractor) Update(id int, u entities.UserParams) (user models.User, err error) {
+	user, err = interactor.UserRepository.Update(id, u)
 	return
 }
 

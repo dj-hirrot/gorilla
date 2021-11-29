@@ -33,7 +33,7 @@ func Init() {
 			users.GET("", func(c echo.Context) error { return userController.Index(c) })
 			users.GET("/:id", func(c echo.Context) error { return userController.Show(c) })
 			users.POST("", func(c echo.Context) error { return userController.Create(c) })
-			users.PUT("/:id", func(c echo.Context) error { return userController.Save(c) })
+			users.PUT("/:id", func(c echo.Context) error { return userController.Update(c) })
 			users.DELETE("/:id", func(c echo.Context) error { return userController.Delete(c) })
 		}
 	}

@@ -3,6 +3,7 @@ package db
 import (
 	"errors"
 
+	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
 )
 
@@ -39,7 +40,7 @@ func (repository *UserRepository) Store(u models.User) (user models.User, err er
 	return u, nil
 }
 
-func (repository *UserRepository) Update(u models.User) (user models.User, err error) {
+func (repository *UserRepository) Update(id int, u entities.UserParams) (user models.User, err error) {
 	if u.Name == "" {
 		err = errors.New("*Name is required*")
 		return
@@ -48,10 +49,15 @@ func (repository *UserRepository) Update(u models.User) (user models.User, err e
 		err = errors.New("*Age must be greater than 0*")
 		return
 	}
-	if err = repository.Save(&u).Error; err != nil {
+	if err = repository.First(&user, id).Error; err != nil {
 		return
 	}
-	return u, nil
+	user.Name = u.Name
+	user.Age = u.Age
+	if err = repository.Save(&user).Error; err != nil {
+		return
+	}
+	return
 }
 
 func (repository *UserRepository) DeleteById(u models.User) (err error) {
