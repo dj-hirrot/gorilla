@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        go: ["1.17.3"]
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Set up Go v${{matrix.go}}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{matrix.go}}
+
+      - name: Install dependent packages
+        run: go mod download
+
+      - name: Run all test
+        run: go test -v ./mocks/...

@@ -3,6 +3,7 @@ package controller
 import (
 	"strconv"
 
+	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
 	"github.com/dj-hirrot/gorilla/src/interface/db"
 	"github.com/dj-hirrot/gorilla/src/usecase"
@@ -97,22 +98,23 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        id        path      int         true "User ID"
-// @Param        parameter body      models.User true "User attributes"
+// @Param        id        path      int                 true "User ID"
+// @Param        parameter body      entities.UserParams true "User attributes"
 // @Success      204       {object}  models.User
 // @Failure      400       {object}  Error
 // @Failure      404       {object}  Error
 // @Failure      500       {object}  Error
 // @Router       /users/{id} [put]
-func (controller *UserController) Save(c echo.Context) (err error) {
-	u := models.User{}
+func (controller *UserController) Update(c echo.Context) (err error) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	u := entities.UserParams{}
 	c.Bind(&u)
-	user, err := controller.Interactor.Update(u)
+	user, err := controller.Interactor.Update(id, u)
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
 	}
-	c.JSON(201, user)
+	c.JSON(204, user)
 	return
 }
 
@@ -123,21 +125,18 @@ func (controller *UserController) Save(c echo.Context) (err error) {
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int           true  "User ID"
-// @Success      201  {object}  models.User
+// @Success      204  {object}  nil
 // @Failure      400  {object}  Error
 // @Failure      404  {object}  Error
 // @Failure      500  {object}  Error
 // @Router       /users/{id} [delete]
 func (controller *UserController) Delete(c echo.Context) (err error) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	user := models.User{
-		Id: id,
-	}
-	err = controller.Interactor.Delete(user)
+	err = controller.Interactor.Delete(id)
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
 	}
-	c.JSON(200, user)
+	c.NoContent(204)
 	return
 }

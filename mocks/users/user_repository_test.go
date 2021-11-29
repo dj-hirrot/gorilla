@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
 	"github.com/golang/mock/gomock"
 )
@@ -80,16 +81,22 @@ func TestUpdate(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
+	id := 1
+	body := entities.UserParams{
+		Name: "東郷平八郎",
+		Age:  86,
+	}
 	expected := models.User{
-		Name: "阿南惟幾",
-		Age:  58,
+		Id:   id,
+		Name: "東郷平八郎",
+		Age:  86,
 	}
 	var err error
 
 	mockUserRepository := NewMockUserRepository(ctrl)
-	mockUserRepository.EXPECT().Update(expected).Return(expected, err)
+	mockUserRepository.EXPECT().Update(id, body).Return(expected, err)
 
-	result, err := mockUserRepository.Update(expected)
+	result, err := mockUserRepository.Update(id, body)
 
 	if err != nil {
 		t.Errorf("Expected nil, got %v\n", err)
@@ -104,16 +111,14 @@ func TestDelete(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	expected := models.User{
-		Name: "阿南惟幾",
-		Age:  58,
-	}
 	var err error
 
-	mockUserRepository := NewMockUserRepository(ctrl)
-	mockUserRepository.EXPECT().DeleteById(expected).Return(expected, err)
+	id := 1
 
-	err = mockUserRepository.DeleteById(expected)
+	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository.EXPECT().DeleteById(id).Return(err)
+
+	err = mockUserRepository.DeleteById(id)
 
 	if err != nil {
 		t.Errorf("Expected nil, got %v\n", err)

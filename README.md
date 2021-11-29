@@ -1,9 +1,19 @@
 # Gorilla
 ![Gorilla logo](/assets/images/logo.jpg)
 
+***I hope that by using Gorilla, you will be able to develop your projects more efficiently and speedily.***
+***- [dj-hirrot](https://github.com/dj-hirrot) -***
+
 ## About
 
 Gorilla template is a project that introduces "CleanArchitecture" and project structure approaches to developing Go REST API server.
+
+## Features
+- It's **implemented with the CleanArchitecture design philosophy**.
+- By annotating the functions, **Swagger documentation can be generated automatically**.
+- **Mocks can be generated automatically** based on the abstracted class.
+- It runs on a Docker container, and **hot reloading by "fresh"** is applied.
+- (CI has been introduced in GitHub Workflow).
 
 ![CleanArchitecture](/assets/images/clean_architecture.jpg)
 
@@ -20,6 +30,9 @@ Gorilla template is a project that introduces "CleanArchitecture" and project st
 | `./src/interface/*` | Interface Adapters |
 | `./src/infrastructure/*` | Frameworks & Drivers |
 
+## Swagger Preview
+🍺 `http://localhost:8080/swagger/index.html` 🍺
+![Swagger preview](/assets/images/swagger_preview.png)
 
 ## Depends on:
 - [swaggo](https://github.com/swaggo/swag)
@@ -32,8 +45,16 @@ Gorilla template is a project that introduces "CleanArchitecture" and project st
 ```
 // The following commands will launch the API and DB containers respectively.
 $ make run
+
 // The following commands will stop the API and DB containers respectively.
 $ make stop
+
 // If you want to delete the mounted volume as well, execute the following command.
 $ make remove
+
+// Run the following command to test.
+$ make test
+
+// The following command will automatically generate the Swagger document.
+$ make gswag
 ```
