@@ -29,7 +29,7 @@ func (interactor *UserInteractor) Update(id int, u entities.UserParams) (user mo
 	return
 }
 
-func (interactor *UserInteractor) Delete(u models.User) (err error) {
-	err = interactor.UserRepository.DeleteById(u)
+func (interactor *UserInteractor) Delete(id int) (err error) {
+	err = interactor.UserRepository.DeleteById(id)
 	return
 }

@@ -60,7 +60,11 @@ func (repository *UserRepository) Update(id int, u entities.UserParams) (user mo
 	return
 }
 
-func (repository *UserRepository) DeleteById(u models.User) (err error) {
+func (repository *UserRepository) DeleteById(id int) (err error) {
+	u := models.User{}
+	if err = repository.First(&u, id).Error; err != nil {
+		return
+	}
 	if err = repository.Delete(&u).Error; err != nil {
 		return
 	}

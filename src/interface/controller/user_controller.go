@@ -125,21 +125,18 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int           true  "User ID"
-// @Success      201  {object}  models.User
+// @Success      204  {object}  models.User
 // @Failure      400  {object}  Error
 // @Failure      404  {object}  Error
 // @Failure      500  {object}  Error
 // @Router       /users/{id} [delete]
 func (controller *UserController) Delete(c echo.Context) (err error) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	user := models.User{
-		Id: id,
-	}
-	err = controller.Interactor.Delete(user)
+	err = controller.Interactor.Delete(id)
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
 	}
-	c.JSON(200, user)
+	c.NoContent(204)
 	return
 }

@@ -10,5 +10,5 @@ type UserRepository interface {
 	FindById(id int) (models.User, error)
 	Store(user models.User) (models.User, error)
 	Update(id int, user entities.UserParams) (models.User, error)
-	DeleteById(user models.User) error
+	DeleteById(id int) error
 }
