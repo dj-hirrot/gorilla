@@ -100,7 +100,7 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 // @Produce      json
 // @Param        id        path      int                 true "User ID"
 // @Param        parameter body      entities.UserParams true "User attributes"
-// @Success      204       {object}  entities.UserParams
+// @Success      204       {object}  models.User
 // @Failure      400       {object}  Error
 // @Failure      404       {object}  Error
 // @Failure      500       {object}  Error
@@ -114,7 +114,7 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 		c.JSON(500, NewError(err))
 		return
 	}
-	c.JSON(201, user)
+	c.JSON(204, user)
 	return
 }
 
@@ -125,7 +125,7 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int           true  "User ID"
-// @Success      204  {object}  models.User
+// @Success      204  {object}  nil
 // @Failure      400  {object}  Error
 // @Failure      404  {object}  Error
 // @Failure      500  {object}  Error
