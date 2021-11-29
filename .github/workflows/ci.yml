@@ -25,4 +25,4 @@ jobs:
         run: go mod download
 
       - name: Run all test
-        run: go test -v ./mocks/*
+        run: go test -v ./mocks/...
