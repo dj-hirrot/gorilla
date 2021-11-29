@@ -5,6 +5,13 @@
 
 Gorilla template is a project that introduces "CleanArchitecture" and project structure approaches to developing Go REST API server.
 
+## Features
+- It's **implemented with the CleanArchitecture design philosophy**.
+- By annotating the functions, **Swagger documentation can be generated automatically**.
+- **Mocks can be generated automatically** based on the abstracted class.
+- It runs on a Docker container, and **hot reloading by "fresh"** is applied.
+- (CI has been introduced in GitHub Workflow).
+
 ![CleanArchitecture](/assets/images/clean_architecture.jpg)
 
 | Layer | Description |
