@@ -20,6 +20,9 @@ Gorilla template is a project that introduces "CleanArchitecture" and project st
 | `./src/interface/*` | Interface Adapters |
 | `./src/infrastructure/*` | Frameworks & Drivers |
 
+## Swagger Preview
+🍺 `http://localhost:8080/swagger/index.html` 🍺
+![Swagger preview](/assets/images/swagger_preview.png)
 
 ## Depends on:
 - [swaggo](https://github.com/swaggo/swag)
