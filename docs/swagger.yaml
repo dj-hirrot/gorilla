@@ -5,6 +5,13 @@ definitions:
       message:
         type: string
     type: object
+  entities.UserParams:
+    properties:
+      age:
+        type: integer
+      name:
+        type: string
+    type: object
   models.User:
     properties:
       age:
@@ -166,14 +173,14 @@ paths:
         name: parameter
         required: true
         schema:
-          $ref: '#/definitions/models.User'
+          $ref: '#/definitions/entities.UserParams'
       produces:
       - application/json
       responses:
         "204":
           description: No Content
           schema:
-            $ref: '#/definitions/models.User'
+            $ref: '#/definitions/entities.UserParams'
         "400":
           description: Bad Request
           schema:

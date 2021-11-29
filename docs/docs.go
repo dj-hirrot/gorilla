@@ -196,7 +196,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/entities.UserParams"
                         }
                     }
                 ],
@@ -204,7 +204,7 @@ var doc = `{
                     "204": {
                         "description": "No Content",
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/entities.UserParams"
                         }
                     },
                     "400": {
@@ -282,6 +282,17 @@ var doc = `{
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "entities.UserParams": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "name": {
                     "type": "string"
                 }
             }
