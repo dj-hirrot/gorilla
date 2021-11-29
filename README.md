@@ -1,7 +1,7 @@
 # Gorilla
 ![Gorilla logo](/assets/images/logo.jpg)
 
-***I hope that by using Gorilla, you will be able to develop your projects more efficiently and speedily.***  
+***I hope that by using Gorilla, you will be able to develop your projects more efficiently and speedily.***
 ***- [dj-hirrot](https://github.com/dj-hirrot) -***
 
 ## About
@@ -45,8 +45,16 @@ Gorilla template is a project that introduces "CleanArchitecture" and project st
 ```
 // The following commands will launch the API and DB containers respectively.
 $ make run
+
 // The following commands will stop the API and DB containers respectively.
 $ make stop
+
 // If you want to delete the mounted volume as well, execute the following command.
 $ make remove
+
+// Run the following command to test.
+$ make test
+
+// The following command will automatically generate the Swagger document.
+$ make gswag
 ```
