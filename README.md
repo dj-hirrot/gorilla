@@ -1,6 +1,9 @@
 # Gorilla
 ![Gorilla logo](/assets/images/logo.jpg)
 
+***I hope that by using Gorilla, you will be able to develop your projects more efficiently and speedily.***  
+***- [dj-hirrot](github.com/dj-hirrot) -***
+
 ## About
 
 Gorilla template is a project that introduces "CleanArchitecture" and project structure approaches to developing Go REST API server.
