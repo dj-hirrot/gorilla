@@ -1,9 +1,11 @@
-# Gorilla Template
+# Gorilla
 ![Gorilla logo](/assets/images/logo.jpg)
 
-This is a REST API template written in Go, implemented by CleanArchitecture.
+## About
 
-![CleanArchitecture](/assets/images/cleanarchitecture.jpg)
+Gorilla template is a project that introduces "CleanArchitecture" and project structure approaches to developing Go REST API server.
+
+![CleanArchitecture](/assets/images/clean_architecture.jpg)
 
 | Layer | Description |
 | --- | ------- |
