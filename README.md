@@ -2,7 +2,7 @@
 ![Gorilla logo](/assets/images/logo.jpg)
 
 ***I hope that by using Gorilla, you will be able to develop your projects more efficiently and speedily.***  
-***- [dj-hirrot](github.com/dj-hirrot) -***
+***- [dj-hirrot](https://github.com/dj-hirrot) -***
 
 ## About
 
