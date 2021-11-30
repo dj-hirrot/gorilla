@@ -1,11 +1,14 @@
 package controller
 
 import (
+	"errors"
+
 	"github.com/dj-hirrot/gorilla/src/domain/models"
 	"github.com/dj-hirrot/gorilla/src/interface/db"
 	"github.com/dj-hirrot/gorilla/src/usecase"
 	"github.com/labstack/echo/v4"
 	uuid "github.com/satori/go.uuid"
+	"gorm.io/gorm"
 )
 
 type UserController struct {
@@ -37,6 +40,10 @@ func NewUserController(sqlHandler db.SqlHandler) *UserController {
 func (controller *UserController) Show(c echo.Context) (err error) {
 	id, _ := uuid.FromString(c.Param("id"))
 	user, err := controller.Interactor.Show(id)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		c.JSON(404, NewError(err))
+		return
+	}
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
@@ -98,7 +105,7 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 // @Produce      json
 // @Param        id        path      string                true "User ID"
 // @Param        parameter body      models.UserAttributes true "User attributes"
-// @Success      204       {object}  models.User
+// @Success      200       {object}  models.User
 // @Failure      400       {object}  Error
 // @Failure      404       {object}  Error
 // @Failure      500       {object}  Error
@@ -108,11 +115,15 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 	u := models.User{}
 	c.Bind(&u)
 	user, err := controller.Interactor.Update(id, u)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		c.JSON(404, NewError(err))
+		return
+	}
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
 	}
-	c.JSON(204, user)
+	c.JSON(200, user)
 	return
 }
 
@@ -131,6 +142,10 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 func (controller *UserController) Delete(c echo.Context) (err error) {
 	id, _ := uuid.FromString(c.Param("id"))
 	err = controller.Interactor.Delete(id)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		c.JSON(404, NewError(err))
+		return
+	}
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
