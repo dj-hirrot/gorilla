@@ -89,7 +89,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/models.UserAttributes"
                         }
                     }
                 ],
@@ -136,7 +136,7 @@ var doc = `{
                 "summary": "Show an user",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "User ID",
                         "name": "id",
                         "in": "path",
@@ -184,7 +184,7 @@ var doc = `{
                 "summary": "Update user",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "User ID",
                         "name": "id",
                         "in": "path",
@@ -196,7 +196,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/entities.UserParams"
+                            "$ref": "#/definitions/models.UserAttributes"
                         }
                     }
                 ],
@@ -241,7 +241,7 @@ var doc = `{
                 "summary": "Delete user",
                 "parameters": [
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "User ID",
                         "name": "id",
                         "in": "path",
@@ -283,28 +283,37 @@ var doc = `{
                 }
             }
         },
-        "entities.UserParams": {
-            "type": "object",
-            "properties": {
-                "age": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
         "models.User": {
             "type": "object",
             "properties": {
-                "age": {
-                    "type": "integer"
+                "createdAt": {
+                    "type": "string",
+                    "example": "2021-11-30T04:17:20.14Z"
+                },
+                "deletedAt": {
+                    "type": "string",
+                    "example": "2021-11-30T04:17:20.14Z"
                 },
                 "id": {
-                    "type": "integer"
+                    "type": "string",
+                    "example": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Hiroto Shibutani"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2021-11-30T04:17:20.14Z"
+                }
+            }
+        },
+        "models.UserAttributes": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Hiroto Shibutani"
                 }
             }
         }

@@ -1,13 +1,11 @@
 package controller
 
 import (
-	"strconv"
-
-	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
 	"github.com/dj-hirrot/gorilla/src/interface/db"
 	"github.com/dj-hirrot/gorilla/src/usecase"
 	"github.com/labstack/echo/v4"
+	uuid "github.com/satori/go.uuid"
 )
 
 type UserController struct {
@@ -30,14 +28,14 @@ func NewUserController(sqlHandler db.SqlHandler) *UserController {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        id   path      int           true  "User ID"
+// @Param        id   path      string        true  "User ID"
 // @Success      200  {object}  models.User
 // @Failure      400  {object}  Error
 // @Failure      404  {object}  Error
 // @Failure      500  {object}  Error
 // @Router       /users/{id} [get]
 func (controller *UserController) Show(c echo.Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id"))
+	id, _ := uuid.FromString(c.Param("id"))
 	user, err := controller.Interactor.Show(id)
 	if err != nil {
 		c.JSON(500, NewError(err))
@@ -74,7 +72,7 @@ func (controller *UserController) Index(c echo.Context) (err error) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        parameter body      models.User true "User attributes"
+// @Param        parameter body      models.UserAttributes true "User attributes"
 // @Success      201       {object}  models.User
 // @Failure      400       {object}  Error
 // @Failure      404       {object}  Error
@@ -98,16 +96,16 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        id        path      int                 true "User ID"
-// @Param        parameter body      entities.UserParams true "User attributes"
+// @Param        id        path      string                true "User ID"
+// @Param        parameter body      models.UserAttributes true "User attributes"
 // @Success      204       {object}  models.User
 // @Failure      400       {object}  Error
 // @Failure      404       {object}  Error
 // @Failure      500       {object}  Error
 // @Router       /users/{id} [put]
 func (controller *UserController) Update(c echo.Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id"))
-	u := entities.UserParams{}
+	id, _ := uuid.FromString(c.Param("id"))
+	u := models.User{}
 	c.Bind(&u)
 	user, err := controller.Interactor.Update(id, u)
 	if err != nil {
@@ -124,14 +122,14 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        id   path      int           true  "User ID"
+// @Param        id   path      string  true  "User ID"
 // @Success      204  {object}  nil
 // @Failure      400  {object}  Error
 // @Failure      404  {object}  Error
 // @Failure      500  {object}  Error
 // @Router       /users/{id} [delete]
 func (controller *UserController) Delete(c echo.Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id"))
+	id, _ := uuid.FromString(c.Param("id"))
 	err = controller.Interactor.Delete(id)
 	if err != nil {
 		c.JSON(500, NewError(err))

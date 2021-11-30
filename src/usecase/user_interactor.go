@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
+	uuid "github.com/satori/go.uuid"
 )
 
 type UserInteractor struct {
@@ -14,7 +14,7 @@ func (interactor *UserInteractor) Index() (users models.Users, err error) {
 	return
 }
 
-func (interactor *UserInteractor) Show(id int) (user models.User, err error) {
+func (interactor *UserInteractor) Show(id uuid.UUID) (user models.User, err error) {
 	user, err = interactor.UserRepository.FindById(id)
 	return
 }
@@ -24,12 +24,12 @@ func (interactor *UserInteractor) Create(u models.User) (user models.User, err e
 	return
 }
 
-func (interactor *UserInteractor) Update(id int, u entities.UserParams) (user models.User, err error) {
+func (interactor *UserInteractor) Update(id uuid.UUID, u models.User) (user models.User, err error) {
 	user, err = interactor.UserRepository.Update(id, u)
 	return
 }
 
-func (interactor *UserInteractor) Delete(id int) (err error) {
+func (interactor *UserInteractor) Delete(id uuid.UUID) (err error) {
 	err = interactor.UserRepository.DeleteById(id)
 	return
 }
