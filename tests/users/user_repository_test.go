@@ -1,10 +1,11 @@
-package mock_usecase
+package users_test
 
 import (
 	"reflect"
 	"testing"
 
 	"github.com/dj-hirrot/gorilla/src/domain/models"
+	mock_usecase "github.com/dj-hirrot/gorilla/tests/mocks"
 	"github.com/golang/mock/gomock"
 	uuid "github.com/satori/go.uuid"
 )
@@ -16,7 +17,7 @@ func TestIndex(t *testing.T) {
 	var expected models.Users
 	var err error
 
-	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
 	mockUserRepository.EXPECT().FindAll().Return(expected, err)
 
 	result, err := mockUserRepository.FindAll()
@@ -39,7 +40,7 @@ func TestShow(t *testing.T) {
 
 	id := uuid.NewV4()
 
-	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
 	mockUserRepository.EXPECT().FindById(id).Return(expected, err)
 
 	result, err := mockUserRepository.FindById(id)
@@ -66,7 +67,7 @@ func TestCreate(t *testing.T) {
 	var expected models.User
 	var err error
 
-	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
 	mockUserRepository.EXPECT().Store(user).Return(expected, err)
 
 	result, err := mockUserRepository.Store(user)
@@ -94,7 +95,7 @@ func TestUpdate(t *testing.T) {
 	var expected models.User
 	var err error
 
-	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
 	mockUserRepository.EXPECT().Update(id, user).Return(expected, err)
 
 	result, err := mockUserRepository.Update(id, user)
@@ -116,7 +117,7 @@ func TestDelete(t *testing.T) {
 
 	id := uuid.NewV4()
 
-	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
 	mockUserRepository.EXPECT().DeleteById(id).Return(err)
 
 	err = mockUserRepository.DeleteById(id)
