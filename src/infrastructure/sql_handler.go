@@ -3,6 +3,7 @@ package infrastructure
 import (
 	"fmt"
 
+	"github.com/dj-hirrot/gorilla/src/domain/models"
 	"github.com/dj-hirrot/gorilla/src/interface/db"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -34,6 +35,12 @@ func NewSqlHandler() db.SqlHandler {
 		println("**Connected to database**")
 		println("\n")
 	}
+
+	conn.Set(
+		"gorm:table_options", "ENGINE=InnoDB",
+	).AutoMigrate(
+		&models.User{},
+	)
 
 	sqlHandler := new(SqlHandler)
 	sqlHandler.Conn = conn

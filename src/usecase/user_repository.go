@@ -1,14 +1,14 @@
 package usecase
 
 import (
-	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
+	uuid "github.com/satori/go.uuid"
 )
 
 type UserRepository interface {
 	FindAll() (models.Users, error)
-	FindById(id int) (models.User, error)
+	FindById(id uuid.UUID) (models.User, error)
 	Store(user models.User) (models.User, error)
-	Update(id int, user entities.UserParams) (models.User, error)
-	DeleteById(id int) error
+	Update(id uuid.UUID, user models.User) (models.User, error)
+	DeleteById(id uuid.UUID) error
 }

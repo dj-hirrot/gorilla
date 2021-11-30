@@ -7,9 +7,9 @@ package mock_usecase
 import (
 	reflect "reflect"
 
-	entities "github.com/dj-hirrot/gorilla/src/domain/entities"
 	models "github.com/dj-hirrot/gorilla/src/domain/models"
 	gomock "github.com/golang/mock/gomock"
+	uuid "github.com/satori/go.uuid"
 )
 
 // MockUserRepository is a mock of UserRepository interface.
@@ -36,7 +36,7 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 }
 
 // DeleteById mocks base method.
-func (m *MockUserRepository) DeleteById(id int) error {
+func (m *MockUserRepository) DeleteById(id uuid.UUID) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteById", id)
 	ret0, _ := ret[0].(error)
@@ -65,7 +65,7 @@ func (mr *MockUserRepositoryMockRecorder) FindAll() *gomock.Call {
 }
 
 // FindById mocks base method.
-func (m *MockUserRepository) FindById(id int) (models.User, error) {
+func (m *MockUserRepository) FindById(id uuid.UUID) (models.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindById", id)
 	ret0, _ := ret[0].(models.User)
@@ -95,7 +95,7 @@ func (mr *MockUserRepositoryMockRecorder) Store(user interface{}) *gomock.Call {
 }
 
 // Update mocks base method.
-func (m *MockUserRepository) Update(id int, user entities.UserParams) (models.User, error) {
+func (m *MockUserRepository) Update(id uuid.UUID, user models.User) (models.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", id, user)
 	ret0, _ := ret[0].(models.User)

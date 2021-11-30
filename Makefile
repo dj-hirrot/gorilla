@@ -22,6 +22,6 @@ gswag:
 	swag init -g src/infrastructure/router.go
 
 test:
-	go test -v ./mocks/...
+	go test -v ./tests/*/*_test.go
 
 .PHONY: clean run stop remove gswag dbclean ps

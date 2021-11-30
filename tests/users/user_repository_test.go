@@ -1,12 +1,13 @@
-package mock_usecase
+package users_test
 
 import (
 	"reflect"
 	"testing"
 
-	"github.com/dj-hirrot/gorilla/src/domain/entities"
 	"github.com/dj-hirrot/gorilla/src/domain/models"
+	mock_usecase "github.com/dj-hirrot/gorilla/tests/mocks"
 	"github.com/golang/mock/gomock"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestIndex(t *testing.T) {
@@ -16,7 +17,7 @@ func TestIndex(t *testing.T) {
 	var expected models.Users
 	var err error
 
-	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
 	mockUserRepository.EXPECT().FindAll().Return(expected, err)
 
 	result, err := mockUserRepository.FindAll()
@@ -37,9 +38,9 @@ func TestShow(t *testing.T) {
 	var expected models.User
 	var err error
 
-	id := 1
+	id := uuid.NewV4()
 
-	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
 	mockUserRepository.EXPECT().FindById(id).Return(expected, err)
 
 	result, err := mockUserRepository.FindById(id)
@@ -57,16 +58,19 @@ func TestCreate(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	expected := models.User{
+	userAttributes := models.UserAttributes{
 		Name: "阿南惟幾",
-		Age:  58,
 	}
+	user := models.User{
+		UserAttributes: userAttributes,
+	}
+	var expected models.User
 	var err error
 
-	mockUserRepository := NewMockUserRepository(ctrl)
-	mockUserRepository.EXPECT().Store(expected).Return(expected, err)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
+	mockUserRepository.EXPECT().Store(user).Return(expected, err)
 
-	result, err := mockUserRepository.Store(expected)
+	result, err := mockUserRepository.Store(user)
 
 	if err != nil {
 		t.Errorf("Expected nil, got %v\n", err)
@@ -81,22 +85,20 @@ func TestUpdate(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	id := 1
-	body := entities.UserParams{
+	id := uuid.NewV4()
+	userAttributes := models.UserAttributes{
 		Name: "東郷平八郎",
-		Age:  86,
 	}
-	expected := models.User{
-		Id:   id,
-		Name: "東郷平八郎",
-		Age:  86,
+	user := models.User{
+		UserAttributes: userAttributes,
 	}
+	var expected models.User
 	var err error
 
-	mockUserRepository := NewMockUserRepository(ctrl)
-	mockUserRepository.EXPECT().Update(id, body).Return(expected, err)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
+	mockUserRepository.EXPECT().Update(id, user).Return(expected, err)
 
-	result, err := mockUserRepository.Update(id, body)
+	result, err := mockUserRepository.Update(id, user)
 
 	if err != nil {
 		t.Errorf("Expected nil, got %v\n", err)
@@ -113,9 +115,9 @@ func TestDelete(t *testing.T) {
 
 	var err error
 
-	id := 1
+	id := uuid.NewV4()
 
-	mockUserRepository := NewMockUserRepository(ctrl)
+	mockUserRepository := mock_usecase.NewMockUserRepository(ctrl)
 	mockUserRepository.EXPECT().DeleteById(id).Return(err)
 
 	err = mockUserRepository.DeleteById(id)
