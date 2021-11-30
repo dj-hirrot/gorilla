@@ -5,20 +5,28 @@ definitions:
       message:
         type: string
     type: object
-  entities.UserParams:
-    properties:
-      age:
-        type: integer
-      name:
-        type: string
-    type: object
   models.User:
     properties:
-      age:
-        type: integer
+      createdAt:
+        example: "2021-11-30T04:17:20.14Z"
+        type: string
+      deletedAt:
+        example: "2021-11-30T04:17:20.14Z"
+        type: string
       id:
-        type: integer
+        example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+        type: string
       name:
+        example: Hiroto Shibutani
+        type: string
+      updatedAt:
+        example: "2021-11-30T04:17:20.14Z"
+        type: string
+    type: object
+  models.UserAttributes:
+    properties:
+      name:
+        example: Hiroto Shibutani
         type: string
     type: object
 host: localhost:8080
@@ -70,7 +78,7 @@ paths:
         name: parameter
         required: true
         schema:
-          $ref: '#/definitions/models.User'
+          $ref: '#/definitions/models.UserAttributes'
       produces:
       - application/json
       responses:
@@ -103,7 +111,7 @@ paths:
         in: path
         name: id
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -133,7 +141,7 @@ paths:
         in: path
         name: id
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -165,13 +173,13 @@ paths:
         in: path
         name: id
         required: true
-        type: integer
+        type: string
       - description: User attributes
         in: body
         name: parameter
         required: true
         schema:
-          $ref: '#/definitions/entities.UserParams'
+          $ref: '#/definitions/models.UserAttributes'
       produces:
       - application/json
       responses:
