@@ -1,8 +1,6 @@
 package db
 
 import (
-	"errors"
-
 	"github.com/dj-hirrot/gorilla/src/domain/models"
 	uuid "github.com/satori/go.uuid"
 )
@@ -26,10 +24,6 @@ func (repository *UserRepository) FindAll() (users models.Users, err error) {
 }
 
 func (repository *UserRepository) Store(u models.User) (user models.User, err error) {
-	if u.Name == "" {
-		err = errors.New("*Name is required*")
-		return
-	}
 	if err = repository.Create(&u).Error; err != nil {
 		return
 	}
@@ -37,10 +31,6 @@ func (repository *UserRepository) Store(u models.User) (user models.User, err er
 }
 
 func (repository *UserRepository) Update(id uuid.UUID, u models.User) (user models.User, err error) {
-	if u.Name == "" {
-		err = errors.New("*Name is required*")
-		return
-	}
 	if err = repository.First(&user, id).Error; err != nil {
 		return
 	}
