@@ -3,8 +3,11 @@ BINARY=engine
 clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 
+engine:
+	go build -o ${BINARY} ./*.go
+
 run:
-	docker-compose up -d
+	docker-compose up --build -d
 
 stop:
 	docker-compose down
@@ -24,4 +27,4 @@ gswag:
 test:
 	go test -v ./tests/*/*_test.go
 
-.PHONY: clean run stop remove gswag dbclean ps
+.PHONY: clean run stop remove gswag dbclean ps engine test
