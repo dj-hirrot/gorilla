@@ -5,7 +5,7 @@ import (
 )
 
 type UserAttributes struct {
-	Name string `gorm:"column:name" json:"name" example:"Hiroto Shibutani"`
+	Name string `gorm:"column:userName" json:"name" validate:"required,max=20" example:"Hiroto Shibutani"`
 }
 
 type User struct {
