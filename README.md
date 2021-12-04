@@ -6,7 +6,7 @@
 
 ## About
 
-Gorilla template is a project that introduces "CleanArchitecture" and project structure approaches to developing Go REST API server.
+The Gorilla Template is a REST API template for efficient personal development, implemented based on the CleanArchitecture design philosophy.
 
 ## Features
 - It's **implemented with the CleanArchitecture design philosophy**.
